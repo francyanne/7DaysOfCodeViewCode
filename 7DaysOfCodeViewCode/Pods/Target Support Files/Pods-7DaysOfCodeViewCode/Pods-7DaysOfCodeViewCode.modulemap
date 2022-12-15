@@ -1,0 +1,6 @@
+framework module Pods_7DaysOfCodeViewCode {
+  umbrella header "Pods-7DaysOfCodeViewCode-umbrella.h"
+
+  export *
+  module * { export * }
+}

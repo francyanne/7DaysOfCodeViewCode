@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MoviesTableViewCell: UITableViewCell {
     // MARK: Properties
@@ -57,6 +58,8 @@ class MoviesTableViewCell: UITableViewCell {
     func setupUI(model: Movie) {
         labelName.text = model.title
         labelLaunch.text = "Lançamento: \(model.release_date)"
+        let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.poster_path)")
+        imageMovie.kf.setImage(with: url)
     }
     
     private func setupConstraints() {

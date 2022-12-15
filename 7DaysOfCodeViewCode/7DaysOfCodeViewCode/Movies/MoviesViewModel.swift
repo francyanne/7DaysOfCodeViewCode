@@ -25,6 +25,7 @@ class MoviesViewModel {
             
             guard let data = data else { return }
             guard let movies = try? JSONDecoder().decode(MovieResults.self, from: data) else { return }
+            print(movies)
             completion(.success(movies))
         }.resume()
     }
