@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MoviesViewController: UIViewController {
     // MARK: Properties
@@ -76,6 +77,16 @@ class MoviesViewController: UIViewController {
 extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         movies?.results.count ?? 2
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detail = DetailViewController()
+        detail.titleMovies.text = movies?.results[indexPath.row].title
+        let url = URL(string: "https://image.tmdb.org/t/p/w500\(movies?.results[indexPath.row].poster_path ?? "")")
+        detail.imageMovie.kf.setImage(with: url)
+        detail.labelRating.text = "Classificação dos usuários: \(movies?.results[indexPath.row].vote_average ?? 0)"
+        detail.textResume.text = movies?.results[indexPath.row].overview
+        navigationController?.pushViewController(detail, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

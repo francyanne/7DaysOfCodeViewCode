@@ -9,7 +9,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
     // MARK: Properties
-    let titleMovies: UILabel = {
+    var titleMovies: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Titulo do Filme"
