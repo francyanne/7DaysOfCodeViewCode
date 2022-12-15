@@ -31,6 +31,7 @@ class MoviesViewController: UIViewController {
         return tableView
     }()
 
+    // MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.getMovies()
@@ -41,6 +42,17 @@ class MoviesViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = ""
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        title = "Voltar"
+    }
+    
+    // MARK: Methods
     private func setupTableView() {
         tableViewMovies.delegate = self
         tableViewMovies.dataSource = self
@@ -74,6 +86,7 @@ class MoviesViewController: UIViewController {
     }
 }
 
+// MARK: TableViewDataSource and TableViewDelegate
 extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         movies?.results.count ?? 2
@@ -93,6 +106,7 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableViewMovies.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MoviesTableViewCell
         guard let movies = movies?.results[indexPath.row] else { return cell ?? UITableViewCell() }
         cell?.setupUI(model: movies)
+        cell?.selectionStyle = .none
         cell?.backgroundColor = .clear
         return cell ?? UITableViewCell()
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: Model
 struct MovieResults: Decodable {
     let results: [Movie]
 }

@@ -10,8 +10,6 @@ import Kingfisher
 
 class MoviesTableViewCell: UITableViewCell {
     // MARK: Properties
-    static let identifier = "cell"
-    
     let imageMovie: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "clean-code")
@@ -38,6 +36,7 @@ class MoviesTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: Overrides
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .clear
@@ -46,20 +45,35 @@ class MoviesTableViewCell: UITableViewCell {
         contentView.addSubview(labelLaunch)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         setupConstraints()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Methods
     func setupUI(model: Movie) {
         labelName.text = model.title
-        labelLaunch.text = "Lançamento: \(model.release_date)"
+        labelLaunch.text = "Lançamento: \(convertDateFormat(inputDate: model.release_date))"
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.poster_path)")
         imageMovie.kf.setImage(with: url)
+    }
+    
+    func convertDateFormat(inputDate: String) -> String {
+        let oldDateFormatter = DateFormatter()
+        oldDateFormatter.dateFormat = "yyyy/MM/dd"
+        
+        guard let oldDate = oldDateFormatter.date(from: inputDate) else {
+            return ""
+        }
+        
+        let convertDateFormatter = DateFormatter()
+        convertDateFormatter.dateFormat = "dd/MM/yy"
+        
+        return convertDateFormatter.string(from: oldDate)
     }
     
     private func setupConstraints() {
