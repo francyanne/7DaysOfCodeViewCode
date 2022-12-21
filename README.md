@@ -1,3 +1,3 @@
 # #7DaysOfCode
 
-Desafio Alura ministrado por Giovanna Mueller.
+Desafio Alura ministrado por Giovanna Moeller.
